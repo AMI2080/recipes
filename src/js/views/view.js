@@ -21,24 +21,16 @@ export default class View {
     const currentElements = Array.from(this._parentElement.querySelectorAll('*'));
     newElements.forEach((newElement, i) => {
       const currentElement = currentElements[i];
-      if (!currentElement) {
-        console.log(newElement.parentNode);
-      } else {
-        if (
-          !newElement.isEqualNode(currentElement) &&
-          newElement.firstChild.nodeValue.trim() !== ''
-          // newElement.firstChild?.nodeValue.trim() !== ''
-          //  &&
-          // newElement.firstChild?.nodeValue.trim() !== undefined
-        ) {
-          // console.log(newElement.firstChild?.nodeValue?.trim() !== '', newElement, newElement.firstChild?.nodeValue.trim());
-          currentElement.textContent = newElement.textContent;
-        }
-        if (!newElement.isEqualNode(currentElement)) {
-          Array.from(newElement.attributes).forEach(attribute => {
-            currentElement.setAttribute(attribute.name, attribute.value);
-          });
-        }
+      if (
+        !newElement.isEqualNode(currentElement) &&
+        newElement.firstChild?.nodeValue.trim() !== ''
+      ) {
+        currentElement.textContent = newElement.textContent;
+      }
+      if (!newElement.isEqualNode(currentElement)) {
+        Array.from(newElement.attributes).forEach(attribute => {
+          currentElement.setAttribute(attribute.name, attribute.value);
+        });
       }
     })
   }
