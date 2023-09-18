@@ -29,12 +29,13 @@ const updateRecipeServingsController = function (newServings) {
 
 const searchController = async function () {
   try {
+    resultsView.renderSpinner();
+
     const query = searchView.getQuery();
     if (!query) return;
 
     await model.loadSearchResults(query);
 
-    resultsView.renderSpinner();
     painationController(1);
   } catch (error) {
     console.log(error);
@@ -50,6 +51,7 @@ const init = function () {
   recipeView.addHandlerRender(recipeController);
   searchView.addHandlerRender(searchController);
   paginationView.addHandlerRender(painationController);
+  resultsView.addClickResultsHandler();
   recipeView.updateServingsHandler(updateRecipeServingsController);
 }
 

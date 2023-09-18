@@ -13,9 +13,10 @@ class ResultsView extends View {
   }
 
   _generatePreviewMarkup(result) {
+    const id = window.location.hash.slice(1);
     return `
       <li class="preview">
-        <a class="preview__link preview__link--active_" href="#${result.id}">
+        <a class="preview__link ${result.id == id ? 'preview__link--active' : ''}" href="#${result.id}">
           <figure class="preview__fig">
             <img src="${result.image}" alt="${result.title}" />
           </figure>
@@ -32,6 +33,15 @@ class ResultsView extends View {
           </div>
         </a>
       </li>`;
+  }
+
+  addClickResultsHandler() {
+    window.addEventListener('hashchange', function (e) {
+      document.querySelectorAll('.preview__link').forEach((link) => {
+        link.classList.remove('preview__link--active')
+      });
+      document.querySelector(`.preview__link[href="${window.location.hash}"]`).classList.add('preview__link--active');
+    });
   }
 }
 
