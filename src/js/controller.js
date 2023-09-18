@@ -47,12 +47,18 @@ const painationController = function (goToPage) {
   paginationView.render(model.state.search);
 }
 
+const bookmarkController = function () {
+  model.state.recipe.bookmarked ? model.removeBookmark() : model.addBookmark();
+  recipeView.update(model.state.recipe);
+}
+
 const init = function () {
   recipeView.addHandlerRender(recipeController);
   searchView.addHandlerRender(searchController);
   paginationView.addHandlerRender(painationController);
   resultsView.addClickResultsHandler();
   recipeView.updateServingsHandler(updateRecipeServingsController);
+  recipeView.bookmarkHandler(bookmarkController);
 }
 
 init();
